@@ -1,14 +1,16 @@
 <template>
   <div id="app">
-    <h1>Bon courage !</h1>
+    <h1>Vue piano</h1>
+    <v-header></v-header>
   </div>
 </template>
 
 <script>
-
+import VHeader from '@/components/VHeader'
 export default {
   name: 'App',
   components: {
+    VHeader
   }
 }
 </script>
