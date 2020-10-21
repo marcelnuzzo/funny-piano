@@ -2,15 +2,16 @@
   <div id="app">
     <h1>Vue piano</h1>
     <v-header></v-header>
+    <v-piano></v-piano>
   </div>
 </template>
 
 <script>
-import VHeader from '@/components/VHeader'
+import VPiano from '@/components/VPiano'
 export default {
   name: 'App',
   components: {
-    VHeader
+    VPiano
   }
 }
 </script>
