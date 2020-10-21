@@ -14,3 +14,10 @@ export default {
   }
 }
 </script>
+
+<style>
+    h1 {
+      text-align: center; 
+      text-decoration: blue;
+    }
+</style>
