@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>Vue piano</h1>
-    <v-header></v-header>
+    <!--<v-header></v-header>-->
     <v-piano></v-piano>
   </div>
 </template>

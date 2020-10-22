@@ -3,9 +3,9 @@
         <div class="container">
             <img src="@/assets/logo.png" alt="Digits logo">
             <hr class="hr">
-            <div id="do" class="touches">
-                <button class="blanc" v-on:click="say('do')">Do</button>
-                <button class="noir" v-on:click="say('do#')">Do#</button>
+            <div id="note"  class="touches">
+                <button v-for="note in notes" :key="note.name" class="blanc" v-on:click="play('do')">Do</button>
+                <button v-for="note in notes" :key="note.name" class="noir" v-on:click="play('do#')">Do#</button>
                 <button class="blanc" v-on:click="say('re')">Ré</button>
                 <button class="noir" v-on:click="say('re##')">Ré#</button>
                 <button class="blanc" v-on:click="say('mi')">Mi</button>
@@ -14,10 +14,9 @@
                 <button class="blanc" v-on:click="say('sol')">Sol</button>
                 <button class="noir" v-on:click="say('sol#')">Sol#</button>
                 <button class="blanc" v-on:click="say('la')">La</button>
-                <button class="noir" v-on:click="say('la#')">La#</button>
-            </div>
-            <div id="note">
-                <button class="blanc" type="button" v-on:click="play">Si</button>
+                <button class="noir"  v-on:click="say('la#')">La#</button> 
+                <button class="blanc" v-on:click="say('si')">Si</button>
+                <!--<audio v-for="note in notes" :key="note.src" ref="audioElm"></audio>-->
                 <audio ref="audioElm" src="assets/sounds/B.mp3"></audio>
             </div>
         </div>
@@ -28,11 +27,26 @@
 
 export default {
     el: 'note',
+    data() {
+		return {
+			notes: [
+                {
+                    name: "do",
+                    src: "assets/sounds/C.mp3"
+                },
+                {
+                    name: "do#",
+                    src: "assets/sounds/C#.mp3"
+                }
+            ]
+        }
+	},
     methods: {
-        play: function (event) {
+        play() {
             this.$refs.audioElm.play();
         }
-    }
+    },
+    
 }
 
 </script>
