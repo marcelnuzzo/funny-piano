@@ -4,20 +4,20 @@
             <img src="@/assets/logo.png" alt="Digits logo">
             <hr class="hr">
             <div id="note"  class="touches">
-                <button v-for="note in notes" :key="note.name" class="blanc" v-on:click="play('do')">Do</button>
-                <button v-for="note in notes" :key="note.name" class="noir" v-on:click="play('do#')">Do#</button>
-                <button class="blanc" v-on:click="say('re')">Ré</button>
-                <button class="noir" v-on:click="say('re##')">Ré#</button>
-                <button class="blanc" v-on:click="say('mi')">Mi</button>
-                <button class="blanc" v-on:click="say('fa')">Fa</button>
-                <button class="noir" v-on:click="say('fa#')">Fa#</button>
-                <button class="blanc" v-on:click="say('sol')">Sol</button>
-                <button class="noir" v-on:click="say('sol#')">Sol#</button>
-                <button class="blanc" v-on:click="say('la')">La</button>
-                <button class="noir"  v-on:click="say('la#')">La#</button> 
-                <button class="blanc" v-on:click="say('si')">Si</button>
-                <!--<audio v-for="note in notes" :key="note.src" ref="audioElm"></audio>-->
-                <audio ref="audioElm" src="assets/sounds/B.mp3"></audio>
+            
+                <button v-for="note in notes" :key="note.name" :class="note.color" @mouseenter="setUrl(note.src)" @click="play()"  v-on:keyup="keymonitor">{{note.name}}</button>
+                <audio ref="audioElm" :src="currentSound"></audio>
+            
+                <!--
+                <div v-if="notes.name.substr(2) === '#'">
+                    <button v-for="note in notes" :key="note.name" @mouseenter="setUrl(note.src)" @click="play()" class="blanc">{{note.name}}</button>
+                    <audio ref="audioElm" :src="currentSound"></audio>
+                </div>
+                <div v-else>
+                    <button v-for="note in notes" :key="note.name" @mouseenter="setUrl(note.src)" @click="play()" class="noir">{{note.name}}</button>
+                    <audio ref="audioElm" :src="currentSound"></audio>
+                </div>
+                -->
             </div>
         </div>
     </div>
@@ -26,27 +26,93 @@
 <script>
 
 export default {
-    el: 'note',
     data() {
-		return {
-			notes: [
+        return {
+            currentSound: null,
+            notes: [
                 {
                     name: "do",
-                    src: "assets/sounds/C.mp3"
+                    src: "/assets/sounds/C.mp3",
+                    color: "blanc"
                 },
                 {
                     name: "do#",
-                    src: "assets/sounds/C#.mp3"
-                }
+                    src: "/assets/sounds/C#.mp3",
+                    color: "noir"
+                },
+                {
+                    name: "re",
+                    src: "/assets/sounds/D.mp3",
+                    color: "blanc"
+                },
+                {
+                    name: "re#",
+                    src: "/assets/sounds/D#.mp3",
+                    color: "noir"
+                },
+                {
+                    name: "mi",
+                    src: "/assets/sounds/E.mp3",
+                    color: "blanc"
+                },
+                {
+                    name: "fa",
+                    src: "/assets/sounds/F.mp3",
+                    color: "blanc"
+                },
+                {
+                    name: "fa#",
+                    src: "/assets/sounds/F#.mp3",
+                    color: "noir"
+                },
+                {
+                    name: "sol",
+                    src: "/assets/sounds/G.mp3",
+                    color: "blanc"
+                },
+                {
+                    name: "sol#",
+                    src: "/assets/sounds/G#.mp3",
+                    color: "noir"
+                },
+                {
+                    name: "la",
+                    src: "/assets/sounds/A.mp3",
+                    color: "blanc"
+                },
+                {
+                    name: "la#",
+                    src: "/assets/sounds/A#.mp3",
+                    color: "noir"
+                },
+                {
+                    name: "si",
+                    src: "/assets/sounds/B.mp3",
+                    color: "blanc"
+                },
             ]
         }
-	},
-    methods: {
-        play() {
-            this.$refs.audioElm.play();
-        }
+
     },
-    
+    methods: {
+        setUrl(src) {
+            this.currentSound = encodeURIComponent(src)
+        },
+        play() {
+            //console.log(this.currentSound)
+            this.$refs.audioElm.currentTime = 0
+            this.$refs.audioElm.play();
+        },
+        keymonitor: function(event) {
+        console.log(event.key);
+            if(event.key == "q")
+            {
+                
+                this.note.src = "/assets/sounds/C.mp3"
+                console.log(this.note.src);
+            }
+        },
+    },
 }
 
 </script>
@@ -55,6 +121,14 @@ export default {
 .container {
     margin-left: auto;
     margin-right: auto;
+}
+
+.couleur {
+    display: inline; 
+    width: 50px;
+    height: 100px;
+    padding: 5px;
+    border: 1px solid grey;  
 }
 
 .blanc {
