@@ -8,6 +8,7 @@
 
 <script>
 import VPiano from '@/components/VPiano'
+
 export default {
   name: 'App',
   components: {

@@ -4,9 +4,9 @@
             <img src="@/assets/logo.png" alt="Digits logo">
             <hr class="hr">
             <div id="note"  class="touches">
-            
-                <button v-for="note in notes" :key="note.name" :class="note.color" @mouseenter="setUrl(note.src)" @click="play()"  v-on:keyup="keymonitor">{{note.name}}</button>
-                <audio ref="audioElm" :src="currentSound"></audio>
+                <img :src="gif" alt="">
+                <button v-for="note in notes" :key="note.name" :class="note.color" @mouseenter="setUrl(note.src)" @click="play()"  @keyup="keymonitor">{{note.name}}</button>
+                <audio ref="audioElm" :src="currentSound" preload="auto"></audio>
             
                 <!--
                 <div v-if="notes.name.substr(2) === '#'">
@@ -24,21 +24,23 @@
 </template>
 
 <script>
-
+import { GiphyFetch } from '@giphy/js-fetch-api'
+const gf = new GiphyFetch('hoc7Xw81iwUP2iewXhekupQznVmYDlHK')
 export default {
     data() {
         return {
+            gif:"",
             currentSound: null,
             notes: [
                 {
                     name: "do",
                     src: "/assets/sounds/C.mp3",
-                    color: "blanc"
+                    color: "blanc",
                 },
                 {
                     name: "do#",
                     src: "/assets/sounds/C#.mp3",
-                    color: "noir"
+                    color: "noir",
                 },
                 {
                     name: "re",
@@ -95,23 +97,85 @@ export default {
 
     },
     methods: {
+        async emoji() {
+            const { data: gif } = await gf.random()
+            //console.log(gif)
+            this.gif = gif.images.fixed_width.webp
+        },
         setUrl(src) {
             this.currentSound = encodeURIComponent(src)
         },
         play() {
             //console.log(this.currentSound)
             this.$refs.audioElm.currentTime = 0
-            this.$refs.audioElm.play();
+            this.$refs.audioElm.play()
+            this.emoji()
         },
-        keymonitor: function(event) {
-        console.log(event.key);
+        keymonitor(event) {
             if(event.key == "q")
-            {
-                
-                this.note.src = "/assets/sounds/C.mp3"
-                console.log(this.note.src);
+            {   
+                this.currentSound = encodeURIComponent("/assets/sounds/C.mp3")
+                console.log(this.currentSound)
             }
+            if(event.key == "s")
+            {
+                this.currentSound = encodeURIComponent("/assets/sounds/C#.mp3")
+                console.log(this.currentSound)
+            }
+            if(event.key == "d")
+            {
+                this.currentSound = encodeURIComponent("/assets/sounds/D.mp3")
+                console.log(this.currentSound)
+            }
+            if(event.key == "f")
+            {
+                this.currentSound = encodeURIComponent("/assets/sounds/D#.mp3")
+                console.log(this.currentSound)
+            }
+            if(event.key == "g")
+            {
+                this.currentSound = encodeURIComponent("/assets/sounds/E.mp3")
+                console.log(this.currentSound)
+            }
+            if(event.key == "h")
+            {
+                this.currentSound = encodeURIComponent("/assets/sounds/F.mp3")
+                console.log(this.currentSound)
+            }
+            if(event.key == "j")
+            {
+                this.currentSound = encodeURIComponent("/assets/sounds/F#.mp3")
+                console.log(this.currentSound)
+            }
+            if(event.key == "k")
+            {
+                this.currentSound = encodeURIComponent("/assets/sounds/G.mp3")
+                console.log(this.currentSound)
+            }
+            if(event.key == "l")
+            {
+                this.currentSound = encodeURIComponent("/assets/sounds/G#.mp3")
+                console.log(this.currentSound)
+            }
+            if(event.key == "m")
+            {
+                this.currentSound = encodeURIComponent("/assets/sounds/A.mp3")
+                console.log(this.currentSound)
+            }
+            if(event.key == "w")
+            {
+                this.currentSound = encodeURIComponent("/assets/sounds/A#.mp3")
+                console.log(this.currentSound)
+            }
+            if(event.key == "x")
+            {
+                this.currentSound = encodeURIComponent("/assets/sounds/B.mp3")
+                console.log(this.currentSound)
+            }
+            this.play()
+            
         },
+      
     },
 }
 
