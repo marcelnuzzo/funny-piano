@@ -3,13 +3,14 @@
         <div class="container">
             <img src="@/assets/logo.png" alt="Digits logo" class="imglogo">
             <hr class="hr">
+            <p>Le clavier fonctionne avec la ligne à partir de q jusqu'à m et les 2 derniers w et x, cependant la première fois il faut appuyer 2 fois sur la même touche</p>
             <div id="note"  class="touches enligne">
                 <button v-for="note in notes" :key="note.name" :class="note.color" @mouseenter="setUrl(note.src)" @click="play()"  @keyup="keymonitor">{{note.name}}</button>
-                <audio ref="audioElm" :src="currentSound" preload="none"></audio>
-            </div>
-            <div classe="enligne emoji">
+                <audio ref="audioElm" :src="currentSound" preload="none" ></audio>
+                <hr>
                 <img :src="gif" alt="">
             </div>
+            
         </div>
     </div>
    
@@ -103,7 +104,7 @@ export default {
             this.$refs.audioElm.play()
             this.emoji()
         },
-        keymonitor(event) {
+        keymonitor: function(event) {
             if(event.key == "q")
             {   
                 this.currentSound = encodeURIComponent("/assets/sounds/C.mp3")
