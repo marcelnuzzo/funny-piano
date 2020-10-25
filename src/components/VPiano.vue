@@ -1,26 +1,18 @@
 <template>
     <div class="content">
         <div class="container">
-            <img src="@/assets/logo.png" alt="Digits logo">
+            <img src="@/assets/logo.png" alt="Digits logo" class="imglogo">
             <hr class="hr">
-            <div id="note"  class="touches">
-                <img :src="gif" alt="">
+            <div id="note"  class="touches enligne">
                 <button v-for="note in notes" :key="note.name" :class="note.color" @mouseenter="setUrl(note.src)" @click="play()"  @keyup="keymonitor">{{note.name}}</button>
-                <audio ref="audioElm" :src="currentSound" preload="auto"></audio>
-            
-                <!--
-                <div v-if="notes.name.substr(2) === '#'">
-                    <button v-for="note in notes" :key="note.name" @mouseenter="setUrl(note.src)" @click="play()" class="blanc">{{note.name}}</button>
-                    <audio ref="audioElm" :src="currentSound"></audio>
-                </div>
-                <div v-else>
-                    <button v-for="note in notes" :key="note.name" @mouseenter="setUrl(note.src)" @click="play()" class="noir">{{note.name}}</button>
-                    <audio ref="audioElm" :src="currentSound"></audio>
-                </div>
-                -->
+                <audio ref="audioElm" :src="currentSound" preload="none"></audio>
+            </div>
+            <div classe="enligne emoji">
+                <img :src="gif" alt="">
             </div>
         </div>
     </div>
+   
 </template>
 
 <script>
@@ -172,6 +164,7 @@ export default {
                 this.currentSound = encodeURIComponent("/assets/sounds/B.mp3")
                 console.log(this.currentSound)
             }
+            setTimeout(function(){}, 200);
             this.play()
             
         },
@@ -183,8 +176,8 @@ export default {
 
 <style lang="postcss" scoped>
 .container {
-    margin-left: auto;
-    margin-right: auto;
+    //margin-left: auto;
+    //margin-right: auto;
 }
 
 .couleur {
@@ -214,19 +207,34 @@ export default {
     color: white;
 }
 
-img {
+.imglogo {
     display: block;
     margin-left: auto;
     margin-right: auto 
 }
 
 .touches {
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 20px;
+    //margin-right: 20%;
 }
 
 .hr {
     margin-bottom: 20px;
+}
+
+#note {
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.enligne {
+    //display: inline-block;
+}
+
+.emoji {
+   
+    margin-top: 10px;
+    margin-left: 20px;
 }
 
 </style>
